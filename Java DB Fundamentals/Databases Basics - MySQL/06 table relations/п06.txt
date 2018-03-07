@@ -1,0 +1,51 @@
+CREATE TABLE subjects(
+subject_id INT NOT NULL PRIMARY KEY,
+subject_name VARCHAR(50)
+);
+
+
+CREATE TABLE majors(
+major_id INT NOT NULL PRIMARY KEY,
+name VARCHAR(50)
+);
+
+
+CREATE TABLE payments(
+payment_id INT NOT NULL PRIMARY KEY,
+payment_date DATE,
+payment_amount DECIMAL(8,2),
+student_id INT NOT NULL
+);
+
+
+CREATE TABLE students(
+student_id INT NOT NULL PRIMARY KEY,
+student_number VARCHAR(12),
+student_name VARCHAR(50),
+major_id INT NOT NULL
+);
+
+CREATE TABLE agenda(
+student_id INT NOT NULL,
+subject_id INT NOT NULL
+);
+
+ALTER TABLE payments
+ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES students(student_id);
+
+ALTER TABLE students
+ADD CONSTRAINT fk_major_id FOREIGN KEY (major_id) REFERENCES majors(major_id);
+
+ALTER TABLE agenda
+ADD CONSTRAINT fk_student_id_a FOREIGN KEY (student_id) REFERENCES students(student_id);
+
+ALTER TABLE agenda
+ADD CONSTRAINT fk_subject_id FOREIGN KEY (subject_id) REFERENCES subjects(subject_id);
+
+
+ALTER TABLE students
+ADD CONSTRAINT fk_student_id_s FOREIGN KEY (student_id) REFERENCES payments(student_id);
+
+
+ALTER TABLE students
+ADD CONSTRAINT fk_student_id_s2 FOREIGN KEY (student_id) REFERENCES agenda(student_id);

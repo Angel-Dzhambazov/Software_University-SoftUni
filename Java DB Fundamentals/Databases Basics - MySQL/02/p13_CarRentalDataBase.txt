@@ -1,0 +1,87 @@
+CREATE DATABASE car_rental;
+
+USE car_rental;
+== GORNITE 2 KOMANDI NE SE PUSKAT V JUDGE ====
+
+CREATE TABLE categories (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+category VARCHAR(50), 
+daily_rate INT, 
+weekly_rate INT, 
+monthly_rate INT, 
+weekend_rate INT);
+
+INSERT INTO categories (`category`)
+VALUES ('Small car'),
+('Large car'),
+('Van');
+
+CREATE TABLE cars (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+plate_number VARCHAR(10), 
+make VARCHAR(20), 
+model VARCHAR(20), 
+car_year INT, 
+category_id INT, 
+doors INT, 
+picture BLOB, 
+car_condition ENUM('perfect','good','fair','bad','undrivable'), 
+available BIT NOT NULL DEFAULT 1
+);
+
+INSERT INTO cars (`plate_number`, `make`)
+VALUES ('PA4455BX', 'Skoda'),
+('PA1234BX', 'VW'),
+('PA4444BX', 'AUDI'); 
+
+
+CREATE TABLE employees (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+first_name VARCHAR(20), 
+last_name VARCHAR(20), 
+title VARCHAR(20), 
+notes TEXT);
+
+
+INSERT INTO employees (`first_name`)
+VALUES ('Gosho'),
+('Pesho'),
+('Vanyo'); 
+
+CREATE TABLE customers (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+driver_licence_number VARCHAR(40), 
+full_name VARCHAR(50), 
+address VARCHAR(50), 
+city VARCHAR(20), 
+zip_code VARCHAR(20), 
+notes TEXT);
+
+INSERT INTO customers (`driver_licence_number`, `full_name`)
+VALUES ('0238569855', 'Ivan Ivanov Ivanov'),
+('sdfasf569855', 'Petar Ivanov Georgiev'),
+('tyrt238569855', 'Georgi Ivanov Petrov');
+
+
+CREATE TABLE rental_orders (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+employee_id INT, 
+customer_id INT, 
+car_id INT, 
+car_condition ENUM('perfect','good','fair','bad','undrivable'), 
+tank_level DECIMAL(5,2), 
+kilometrage_start INT, 
+kilometrage_end INT, 
+total_kilometrage INT, 
+start_date DATE, 
+end_date DATE, 
+total_days INT, 
+rate_applied VARCHAR(10), 
+tax_rate VARCHAR(10), 
+order_status BIT(1) NOT NULL DEFAULT 0, 
+notes TEXT);
+
+INSERT INTO `rental_orders` (`employee_id`, `customer_id`,`car_condition`,`order_status`)
+VALUES (2,1,1,0),
+(3,2,1,1),
+(4,3,1,1);

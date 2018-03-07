@@ -1,0 +1,70 @@
+Notes from watching lecture Data Aggregation - Лектор Ирина Наскинова 
+
+== group by
+
+SELECT e.department_id, SUM(salary_) FROM employees AS e
+GROUP BY e.department_id
+ORDER BY e.department_id;
+
+това ни позволява обобщена информация на основа данните, които имаме в таблицата. 
+
+-- преброява всички редове
+SELECT COUNT(*) FROM employees AS e;
+
+
+
+-- за всяка позиция се преброяват всички редове(записи в таблицата) 
+SELECT e.job_title, COUNT(*) FROM employees AS e
+GROUP BY e.job_title;
+
+
+-- обобщаваNе по заплата. 
+SELECT e.salary, e.job_title, COUNT(e.employee_id) FROM employees AS e
+GROUP BY e.salary;
+
+
+-- обобщаване по отдел (групира всички записи за отделите), смята цялата сума за заплати в отдела, средната заплата, 
+SELECT SUM(e.salary), e.job_title, COUNT(e.employee_id) AS 'брой служители', ROUND(AVG(e.salary),2) AS 'Средна заплата', e.department_id
+FROM employees AS e
+GROUP BY e.department_id
+ORDER BY e.department_id ASC;
+
+-- Типове форматиране на числа
+FORMAT(3.1415,2) = 3.14
+ROUND(3.1415,2) = 3.14
+CEIL(3.1415) = 4
+FLOOR(3.1415) = 3
+TRUNCATE(3.1415,2) = 3.14
+
+
+
+DATE FORMAT(date,format)
+
+GROUP BY - Първоначално групиране, след това ако искаме допълнителни условия
+HAVING
+!
+
+-- PROBLEM WIT HAVING
+
+SELECT *, ROUND(AVG(e.salary),2) AS 'average salary' FROM employees AS e
+GROUP BY e.department_id
+HAVING `average salary`>20000
+ORDER BY `average salary` DESC;
+
+
+
+SELECT depaments.name, COUNT( FROM employees AS e 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

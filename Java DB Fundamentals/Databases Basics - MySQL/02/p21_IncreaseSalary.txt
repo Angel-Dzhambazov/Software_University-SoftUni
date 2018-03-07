@@ -1,0 +1,3 @@
+UPDATE employees SET salary = salary + (salary*10.0/100.0)
+WHERE salary > 100;
+SELECT salary FROM employees;

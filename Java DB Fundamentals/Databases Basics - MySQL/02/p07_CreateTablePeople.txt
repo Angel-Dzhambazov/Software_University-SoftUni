@@ -1,0 +1,16 @@
+CREATE TABLE people(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(200) NOT NULL,
+picture MEDIUMBLOB,
+height DECIMAL(3,2),
+weight DECIMAL(5,2),
+gender ENUM ('m','f') NOT NULL,
+birthdate DATE NOT NULL,
+biography  TEXT
+);
+INSERT INTO people (`name`, `picture`, `height`, `weight`, `gender`, `birthdate`, `biography`)
+VALUES ('name1','12343453454', 1.57, 100.23, 1, '2015-01-01', 'this is my biography'),
+('name2','12343453454', 1.57, 100.23, 1, '1980-11-01', 'this is my biography'),
+('gogo','12343453454', 2.57, 123.23, 2, '1975-08-01', 'this is my biography'),
+('name4','12343453454', 3.57, 130.23, 2, '2000-05-01', 'this is my biography'),
+('whythereisError','12343453454', 4.57, 107.23, 2, '2012-11-01', 'this is my biography');

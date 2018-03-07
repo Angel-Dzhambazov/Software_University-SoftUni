@@ -1,0 +1,71 @@
+=== Първите две команди не се пускат в judge! === 
+CREATE DATABASE movies;
+
+USE movies;
+=== Пуска се от тук надолу: ========
+
+CREATE TABLE directors(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+director_name VARCHAR(50) NOT NULL,
+notes TEXT NULL
+);
+
+CREATE TABLE genres(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+genre_name VARCHAR(50) NOT NULL,
+notes TEXT
+);
+
+CREATE TABLE categories(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+category_name VARCHAR(50) NOT NULL,
+notes TEXT
+);
+
+CREATE TABLE movies(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+title VARCHAR(50) NOT NULL UNIQUE,
+director_id INT NOT NULL,
+copyright_year INT NOT NULL,
+`length` INT NOT NULL,
+genre_id INT NOT NULL,
+category_id INT NOT NULL,
+rating TINYINT,
+notes TEXT
+);
+
+ALTER TABLE movies
+ADD CONSTRAINT fk_director_id FOREIGN KEY (director_id) REFERENCES directors(id),
+ADD CONSTRAINT fk_genre_id FOREIGN KEY (genre_id) REFERENCES genres(id),
+ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(id);
+
+
+
+INSERT INTO directors (`director_name`, `notes`)
+VALUES ('Velkov', 'pleshiv, slab, s o4ila'),
+('Gicev', 'playboy'),
+('Adelina', 'hell'),
+('NqkavRandom', ''),
+('DirectorID5', 'default_director');
+
+INSERT INTO genres (genre_name, notes)
+VALUES ('Comedy',''),
+('Drama',''),
+('Sci-Fi','Cylon'),
+('Action','Bumblebee'),
+('Cartoon','Tommy');
+
+INSERT INTO categories(category_name, notes)
+VALUES ('Famility','anyone can watch'),
+('Young','childish shit'),
+('Adult','XXX'),
+('Fans','Hardcore fans who do not care much'),
+('Old','');
+
+
+INSERT INTO movies (title, director_id, copyright_year, `length`, genre_id, category_id, rating, notes)
+VALUES ('Cars', 3, 2000, 120, 3, 1, 5, 'Super nice movie'),
+('Movie2', 1, 2000, 120, 1, 1, 5, 'Second movie in the table'),
+('Movie3', 1, 2000, 120, 1, 1, 5, 'Third movie in the table'),
+('Movie4', 1, 2000, 120, 1, 1, 5, 'Fourth movie in the table'),
+('Movie5', 1, 2000, 120, 1, 1, 5, 'Fifth movie in the table');

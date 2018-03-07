@@ -1,0 +1,3 @@
+UPDATE payments SET tax_rate = tax_rate - (tax_rate*3.0/100)
+WHERE tax_rate > 0;
+SELECT tax_rate FROM payments;

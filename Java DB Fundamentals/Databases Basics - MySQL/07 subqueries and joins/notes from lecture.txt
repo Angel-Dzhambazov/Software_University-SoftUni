@@ -1,0 +1,108 @@
+NOTES FROM LECTURE - Joins, Subqueries and Indices
+
+https://www.youtube.com/watch?v=4bl1U4RD298&feature=youtu.be
+
+
+join - казваме по какво се свързват две таблици - често по два основни ключа.
+
+
+1) Base structure of join function - inner join:
+
+SELECT e.first_name, e.last_name, e.department_id, d.name
+FROM employees AS e 
+JOIN departments AS d
+ON e.department_id = d.department_id;
+
+
+2) Cartesian product - всяко от едната таблица се събира със всяко от втората таблица:
+
+SELECT e.first_name, e.last_name, d.name
+FROM employees AS e, departments AS d;
+
+махаме JOIN и просто изброяваме таблиците. 
+не се използва много често. Няма "условие" за събиране на двете таблици. Едно към всичко. 
+
+
+При JOIN може да се свържат повече от 2 таблици. 
+
+LEFT JOIN - всичко от лявата таблица се извлича/излиза, а от дяснята таблица се показват резултатите само от общите колони. 
+Ако няма нищо излиза като null
+- Излиза ВСИЧКО от лявата таблица, без значение дали отговаря на "ON" условието. 
+Ако използваме само JOIN излизат само редовете, които са общи за двете таблици! 
+
+Аналогично е за RIGHT JOIN. 
+
+
+
+SELECT p.name, GROUP_CONCAT(e.first_name)
+FROM employees AS e LEFT JOIN employees_projects AS ep ON e.employee_id= ep.employee_id
+LEFT JOIN projects AS p ON ep.project_id=p.project_id
+GROUP BY p.project_id;
+
+
+SELECT e.employee_id, CONCAT_WS(' ',e.first_name, e.last_name) AS 'full name', d.department_id, d.name
+FROM employees AS e JOIN departments AS d ON e.employee_id = d.manager_id
+ORDER BY e.employee_id LIMIT 5;
+
+
+OUTER (UNION) JOIN
+(FULL JOIN)
+(вложен SELECT) 
+
+SELECT e.first_name, d.name
+FROM employees AS e
+LEFT JOIN departments AS d
+ON e.department_id=d.department_id
+
+UNION
+
+SELECT e.first_name, d.name
+FROM employees AS e 
+RIGHT JOIN departments AS d
+ON e.department_id = d.department_id;
+
+
+CROSS JOIN
+
+SUBQUERY - SQL query inside a larger one, can be nested in SELECT, INSERT, UPDATE, DELETE.
+
+indeces - помага за по-бързото изпълняване на заявката 
+
+B-trees
+индексите забавят
+UPDATE, INSERT, DELETE
+но значително по-бързо намират информация т.е. търсене/справки/репорти 
+
+използват се в големи таблици, които знаем че няма да се updatevat често. 50к+ записа
+
+Индексите функционират като Pointer-и. 
+
+CREATE INDEX  `name_of_index_column` ON `table_name`(`column_name1`,`column_name2);
+
+
+
+така се селектират индекси: 
+
+SELECT s.TABLE_SCHEMA, S.TABLE_NAME, s.INDEX_NAME, s.INDEX_COMMENT, s.INDEX_TYPE
+FROM statistics AS statistics
+WHERE s.TABLE_SCHEMA = 'soft_uni' AND s.TABLE_NAME = 'employees';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

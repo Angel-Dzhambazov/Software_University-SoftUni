@@ -1,0 +1,111 @@
+create view
+create database
+create table
+
+UPDATE
+MODIFY (Когато се променя структурата на една таблица)
+
+DELETE - Изтрива отделен ред
+TRUNCATE - Изтрива съдържанието, като оставя структурата на таблицата
+DROP - Изтрива таблицата изцяло. 
+
+WHERE `table_name` LIKE('STRING%'); - Почти като равно, но за стрингове. Може би като equals @ java. 
+В случая ще търси какъвто и да е стринг, започващ с "STRING". а след това процент, т.е. няма значение какво е натам.
+
+
+concat_ws = concat with separator
+
+Функции: 
+- за обработка на стрингове
+concat() - свързване на няколко стрингове
+SUBSTRING() - взима част от стринга, има аргументи начало и край или само начало, както и самият стринга
+SUBSTRING(String, position) - 
+може отрицателна стойност за position, тогава се взимат последните брой символи от стринга.
+
+REPLACE - CASESENSITIVE!
+
+LTRIM  - LEFT TRIM
+RTRIM  - RIGHT TRIM
+
+CHAR_LENGTH - брой символи в един стринг
+LENGTH - големина в битове на един стринг!??!
+
+LEFT(String, Count)
+RIGHT(String, Count) - като substring 
+
+
+LOWER - всичко  с малки букви
+UPPER - всичко с големи букви 
+
+REVERSE - обръща стринга в отзад напред
+REPEAT - (String, count) - повтаря стринга колкото пъти му кажем. 
+
+LOCATE
+
+INSERT ('Peter',4,2,'ranka');
+=> Petranka
+INSERT(`last_name`,5,2,'ova');
+INSERT(`last_name`,LOCATE('OB',`last_name`),'ova');
+
+'LIKE' -
+
+\ - За  escaping
+
+вътре може да има regex
+ 
+
+- математически функции
+почти всички функции от math. 
+DIV - деление 
+/
+-
+% == MOD
++
+*
+ABS(-3) => +3 
+SIN()
+COS()
+POW(3,2) = 3^2
+
+SUM (3,4,5,..)
+AVG() - average 
+
+CONV - Convert numbers between different number bases
+CONV(value, from_base, to base);
+ROUND (value, precision);
+RAND() - Рандом :) 
+CEIL(value) - взима нагоре цяло число
+FLOOR(Value) - взима надолу цяло число 
+
+SIGN (Value) - вади резултат -1, 1 или 0.
+
+- функции за време и дата
+EXTRACT(part from )
+
+DATE_FORMAT(`Table_with_dates`, '%W, %D of %M, %Y') - Връща само годината
+
+W- day
+D- day
+M - month
+Y - year
+
+TIMESTAMPDIFF - Разлика между две години/дати. 
+
+NOW(), CURRENT_TIMESTAMP(), UNIX_TIMESTAMP()
+DAYTIME
+DAYOFWEEK
+MONTHNAME 
+SUBDATE
+HOUR 
+EXTRACT
+===
+
+
+ 
+ 
+спиране на защита във workbench:
+
+edit -> preferences -> SQL Editor -> най-отдолу 'safe updates' thick box should be off. 
+ 
+ 
+ 

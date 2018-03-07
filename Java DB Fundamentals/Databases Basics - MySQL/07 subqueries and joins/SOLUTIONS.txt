@@ -1,0 +1,175 @@
+-- PROBLEM 01 INNER JOIN ON 
+
+SELECT e.employee_id, e.job_title, e.address_id, d.address_text 
+FROM employees AS e
+JOIN addresses AS d ON e.address_id=d.address_id
+ORDER BY e.address_id LIMIT 5;
+
+
+
+-- PROBLEM 02 INNER JOIN ON 
+
+SELECT e.first_name, e.last_name, t.name, d.address_text 
+FROM employees AS e
+JOIN addresses AS d ON e.address_id=d.address_id
+JOIN towns AS t ON d.town_id=t.town_id
+ORDER BY e.first_name, e.last_name LIMIT 5;
+
+-- PROBLEM 03 MULTY SELECT; MULTIPLE SELECT, NESTED SELECT, SUBQUERY
+
+
+SELECT e.employee_id, e.first_name, e.last_name,
+
+(SELECT d1.name FROM departments AS d1
+WHERE d1.department_id = e.department_id) AS `department_name`
+
+FROM employees AS e
+WHERE e.department_id IN (
+	SELECT d.department_id FROM departments AS d
+	WHERE d.name = 'Sales')
+ORDER BY e.employee_id DESC;
+
+
+
+-- PROBLEM 04
+
+
+SELECT e.employee_id, e.first_name, e.salary,  d.name
+FROM employees AS e
+JOIN departments AS d ON e.department_id = d.department_id
+WHERE e.salary>15000
+ORDER BY d.department_id DESC, e.employee_id LIMIT 5;
+
+
+-- PROBLEM 05
+
+SELECT e.employee_id, e.first_name
+FROM employees AS e LEFT JOIN employees_projects AS ep ON e.employee_id= ep.employee_id
+WHERE ep.project_id IS NULL
+ORDER BY e.employee_id DESC LIMIT 3;
+
+-- PROBLEM 06 DATE COMPARE, when comparing dates, if 1999-1-1 mySQL хваща 1999-01-01-00:00:00.00000, 
+което може да ни хване хора от 1999-1-1, които отговрят, заради часа, затова даваме 1999-01-02 
+
+SELECT e.first_name, e.last_name, e.hire_date, d.name
+FROM employees AS e JOIN departments AS d ON e.department_id = d.department_id
+	AND (d.name = 'Sales' OR d.name = 'Finance')
+WHERE e.hire_date>='1999-1-2'
+ORDER BY e.hire_date;
+
+--
+SELECT e.first_name, e.last_name, e.hire_date, d.name
+FROM employees AS e JOIN departments AS d ON e.department_id = d.department_id
+WHERE e.hire_date>='1999-1-2' AND d.name IN ('Sales','Finance')
+ORDER BY e.hire_date;
+
+-- PROBLEM 07  thriple JOIN
+ 
+SELECT e.employee_id, e.first_name, p.name, p.start_date, p.end_date
+FROM employees AS e JOIN employees_projects AS ep ON e.employee_id = ep.employee_id JOIN projects AS p ON ep.project_id = p.project_id
+WHERE p.start_date>='2002-08-14' AND p.end_date IS NULL
+ORDER BY e.first_name, p.name LIMIT 5;
+
+-- PROBLEM 08   SWITCH CASE WHEN, MUST HAVE END
+ 
+
+SELECT e.employee_id, e.first_name,
+	(CASE
+		WHEN p.start_date>='2005-1-1' THEN NULL
+		ELSE p.name
+	END) AS 'project_name'
+FROM employees AS e JOIN employees_projects AS ep ON e.employee_id = ep.employee_id JOIN projects AS p ON ep.project_id = p.project_id
+WHERE e.employee_id='24'
+ORDER BY p.name;
+
+
+
+-- PROBLEM 09 -  SELF REFER 
+
+SELECT e.employee_id, e.first_name, e.manager_id, e1.first_name
+FROM employees AS e JOIN employees AS e1 ON e.manager_id = e1.employee_id
+WHERE e.manager_id = 7 or e.manager_id =3
+ORDER BY e.first_name;
+
+
+
+-- P10 - thriple join
+
+SELECT e.employee_id, CONCAT_WS(' ',e.first_name, e.last_name) AS 'employee_name', CONCAT_WS(' ',e1.first_name,e1.last_name) AS 'manager_name', d.name
+FROM employees AS e JOIN employees AS e1 ON e.manager_id = e1.employee_id 
+JOIN departments AS d ON e.department_id = d.department_id
+ORDER BY e.employee_id LIMIT 5;
+
+P11 
+SELECT  AVG(e.salary) AS 'min_average_salary'
+FROM employees AS e
+GROUP BY e.department_id
+ORDER BY min_average_salary LIMIT 1;
+
+
+P12 -
+
+SELECT c.country_code, m.mountain_range, p.peak_name, p.elevation FROM countries AS c
+
+JOIN mountains_countries AS mc ON c.country_code = mc.country_code
+JOIN mountains AS m ON m.id = mc.mountain_id
+JOIN peaks AS p ON p.mountain_id = m.id
+WHERE c.country_code = 'BG' AND p.elevation>2835
+ORDER BY p.elevation DESC
+
+
+P13 -- 
+
+SELECT c.country_code, COUNT(m.mountain_range) AS `mountain_range` FROM countries AS c
+JOIN mountains_countries AS mc ON c.country_code = mc.country_code
+JOIN mountains AS m ON m.id = mc.mountain_id
+WHERE c.country_code IN ('BG', 'RU', 'US')
+GROUP BY c.country_code
+ORDER BY mountain_range DESC
+
+
+P14 - LEFT JOIN, Multiple JOIN 
+
+SELECT c.country_name, r.river_name FROM countries AS c
+JOIN continents AS cont ON c.continent_code=cont.continent_code
+LEFT JOIN countries_rivers AS cr ON c.country_code = cr.country_code
+LEFT JOIN rivers AS r ON cr.river_id=r.id
+WHERE cont.continent_name = 'Africa'
+ORDER BY c.country_name LIMIT 5
+
+
+P15 - nested select min/count having
+
+SELECT `continent_code`, `currency_code` ,COUNT(c.country_name) AS `count` FROM countries AS c
+GROUP BY `continent_code`, `currency_code`
+HAVING `count` = (
+	SELECT COUNT(c1.country_code) AS `count1` FROM countries AS c1
+	WHERE c1.continent_code = c.continent_code
+	GROUP BY c1.currency_code
+	ORDER BY `count1` DESC LIMIT 1
+) 	AND `count`>1
+ORDER BY c.continent_code, c.currency_code;
+
+P16:
+
+SELECT COUNT(c.country_code) FROM countries AS c 
+LEFT JOIN mountains_countries AS m ON c.country_code=m.country_code
+WHERE m.mountain_id IS NULL
+
+
+
+p17 
+
+SELECT c.country_name, MAX(p.elevation) AS `elevation1`, MAX(r.`length`) AS `riverLength` FROM countries AS c 
+LEFT JOIN countries_rivers AS cr ON cr.country_code=c.country_code 
+LEFT JOIN rivers AS r ON r.id= cr.river_id
+LEFT JOIN mountains_countries AS mr ON mr.country_code=c.country_code
+LEFT JOIN peaks AS p ON p.mountain_id = mr.mountain_id
+GROUP BY c.country_name
+ORDER BY `elevation1` DESC, riverLength DESC, c.country_name LIMIT 5;
+
+
+
+
+
+

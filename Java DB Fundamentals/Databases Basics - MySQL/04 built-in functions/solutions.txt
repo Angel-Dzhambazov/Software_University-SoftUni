@@ -1,0 +1,134 @@
+-- PROBLEM 01
+
+SELECT `first_name`, `last_name` FROM employees
+WHERE `first_name` LIKE('Sa%')
+ORDER BY employees.employee_id;  
+
+-- PROBLEM 02
+
+SELECT `first_name`, `last_name` FROM employees
+WHERE `last_name` LIKE('%ei%')
+ORDER BY employees.employee_id;  
+
+
+-- PROBLEM 03
+
+SELECT  e.first_name FROM employees AS e
+WHERE e.department_id IN(3,10) AND (YEAR(e.hire_date)>=1995 AND YEAR(e.hire_date) <=2005)
+ORDER BY e.department_id ASC;
+
+
+SELECT  e.first_name FROM employees AS e
+WHERE (e.department_id=3 OR e.department_id=10) AND (YEAR(e.hire_date)>=1995 AND YEAR(e.hire_date) <=2005)
+ORDER BY e.department_id ASC;
+
+
+
+-- PROBLEM 04
+
+SELECT e.first_name, e.last_name FROM employees AS e
+WHERE e.job_title NOT LIKE('%engineer%');
+
+
+
+-- PROBLEM 05
+
+SELECT t.name FROM towns AS t
+WHERE (CHAR_LENGTH(t.name)>=5 AND CHAR_LENGTH(t.name)<=6)
+ORDER BY t.name ASC;
+
+
+
+-- PROBLEM 06
+
+SELECT t.town_id, t.name FROM towns AS t
+WHERE t.name REGEXP '^[B|M|K|E].+'
+ORDER BY t.name ASC;
+
+
+-- PROBLEM 07
+
+
+
+SELECT t.town_id, t.name FROM towns AS t
+WHERE t.name NOT REGEXP '^[B|R|D].+'
+ORDER BY t.name ASC;
+
+-- PROBLEM 08
+
+CREATE VIEW v_employees_hired_after_2000 AS
+SELECT e.first_name, e.last_name FROM employees AS e
+WHERE YEAR(e.hire_date)>2000;
+
+
+-- PROBLEM 09
+
+
+SELECT e.first_name, e.last_name FROM employees AS e
+WHERE CHAR_LENGTH(e.last_name)=5;
+
+
+-- PROBLEM 10
+
+
+
+SELECT c.country_name, c.iso_code FROM countries AS c
+WHERE c.country_name LIKE('%a%a%a%')
+ORDER BY c.iso_code;
+
+
+-- PROBLEM 11
+
+SELECT p.peak_name, r.river_name, LOWER(CONCAT(p.peak_name, SUBSTRING(r.river_name,2))) AS 'mix' FROM peaks AS p, rivers AS r
+WHERE RIGHT(p.peak_name,1)=LEFT(r.river_name,1)
+ORDER BY `mix`;
+ 
+ -- PROBLEM 12
+ 
+ 
+ 
+
+SELECT g.name, SUBSTRING(DATE(g.`start`),1,10) AS `start` FROM games AS g
+WHERE SUBSTRING(g.`start`,1,4) IN (2011,2012)
+ORDER BY g.`start`, g.name LIMIT 50;
+
+
+-- PROBLEM 13
+
+
+SELECT u.user_name, SUBSTRING(u.email, LOCATE('@',u.email)+1) AS `Email Provider` FROM users AS u
+ORDER BY `Email Provider`, u.user_name;
+
+
+-- PROBLEM 14
+
+
+SELECT u.user_name, u.ip_address AS `Email Provider` FROM users AS u
+WHERE u.ip_address LIKE'___.1%.%.___'
+ORDER BY u.user_name;
+
+
+--  PROBLEM 15
+
+SELECT g.name AS 'game',	CASE 
+		WHEN EXTRACT(HOUR FROM g.`start`)<12 THEN 'Morning'
+		WHEN EXTRACT(HOUR FROM g.`start`)<18 THEN 'Afternoon'
+		WHEN EXTRACT(HOUR FROM g.`start`)<24 THEN 'Evening' END AS 'Part of the Day',
+		CASE 
+			WHEN g.duration<=3 THEN 'Extra Short'
+			WHEN g.duration<=6 THEN 'Short'
+			WHEN g.duration<=10 THEN 'Long'
+			ELSE 'Extra Long' END AS 'Duration'
+ 			 FROM games AS g
+ORDER BY g.name;
+
+
+-- PROBLEM 16
+
+SELECT * FROM orders;
+
+SELECT o.product_name, o.order_date, 
+DATE_ADD(o.order_date, INTERVAL 3 DAY) AS 'pay_due', DATE_ADD(o.order_date, INTERVAL 1 MONTH) AS 'deliver_due'  FROM orders AS o;
+
+
+

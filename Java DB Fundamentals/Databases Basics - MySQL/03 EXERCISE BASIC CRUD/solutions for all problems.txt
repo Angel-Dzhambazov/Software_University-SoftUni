@@ -1,0 +1,132 @@
+-- PROBLEM 02
+SELECT * FROM departments
+ORDER BY department_id;
+
+
+-- PROBLEM 03
+
+SELECT name FROM departments
+ORDER BY department_id;
+
+-- PROBLEM 04
+
+SELECT `first_name`, `last_name`, `salary` FROM employees
+ORDER BY employee_id;
+
+-- PROBLEM 05
+
+SELECT `first_name`, `middle_name`, `last_name` FROM employees
+ORDER BY employee_id;
+
+
+-- PROBLEM 06
+
+SELECT CONCAT(`first_name`, '.', `last_name`,'@softuni.bg') AS `full_email_address`
+FROM employees;
+
+-- PROBLEM 07 
+
+SELECT DISTINCT `salary`
+FROM employees ORDER BY employees.salary;
+
+-- PROBLEM 08
+
+SELECT * FROM employees
+WHERE `job_title`='Sales Representative';
+
+-- PROBLEM 09 
+SELECT `first_name`, `last_name`, `job_title` FROM employees
+WHERE employees.salary>=20000 AND employees.salary<=30000;
+
+
+-- PROBLEM 10
+
+SELECT CONCAT(`first_name`, ' ', `middle_name`,' ',`last_name`) AS `full_name`
+FROM employees WHERE employees.salary IN (25000,14000,12500,23600);
+
+-- PROBLEM 11
+
+SELECT `first_name`, `last_name` FROM employees
+WHERE manager_id IS NULL;
+
+-- PROBLEM 12
+
+SELECT `first_name`, `last_name`, `salary` FROM employees
+WHERE employees.salary>50000 ORDER BY `salary` DESC;
+
+-- PROBLEM 13
+
+SELECT `first_name`, `last_name` FROM employees
+ORDER BY `salary` DESC LIMIT 5;
+
+
+-- PROBLEM 14 
+SELECT `first_name`, `last_name` FROM employees
+WHERE employees.department_id != 4;
+
+-- PROBLEM 15
+
+SELECT `employee_id`, `first_name`, `last_name`, `middle_name`, `job_title`, `department_id`, `manager_id`, `hire_date`, `salary`, `address_id` FROM employees
+ORDER BY employees.salary DESC, employees.first_name, employees.last_name DESC, employees.middle_name;
+
+-- PROBLEM 16
+
+CREATE VIEW v_employees_salaries AS
+SELECT `first_name`, `last_name`, `salary`
+FROM employees;
+
+-- PROBLEM 17
+
+CREATE VIEW v_employees_job_titles AS 
+SELECT CONCAT(COALESCE(`first_name`,''),' ',COALESCE(`middle_name`,''),' ',COALESCE(`last_name`,'')) AS `full_name`, job_title FROM employees;
+
+-- PRAVILNIQT NA4IN OBA4E E:
+CREATE VIEW v_employees_job_titles AS 
+SELECT CONCAT_WS(' ', `first_name`, `middle_name`, `last_name`) AS `full_name`, employees.job_title FROM employees;
+
+-- PROBLEM 18
+
+SELECT DISTINCT `job_title` FROM employees ORDER BY `job_title`;
+
+-- PROBLEM 19 
+
+SELECT * FROM projects 
+ORDER BY projects.start_date, projects.name LIMIT 10;
+
+-- PROBLEM 20
+
+SELECT employees.first_name, employees.last_name, employees.hire_date FROM employees
+ORDER BY employees.hire_date DESC LIMIT 7;
+
+
+-- PROBLEM 21
+
+
+UPDATE `employees`
+SET salary = (salary * 112.0000 /100.0000)
+WHERE department_id IN (1,2,4,11); 
+
+
+-- PROBLEM 22
+
+SELECT peaks.peak_name FROM peaks
+ORDER BY peaks.peak_name;
+
+
+-- PROBLEM 23
+
+SELECT countries.country_name, countries.population FROM countries
+WHERE countries.continent_code = 'EU'
+ORDER BY countries.population DESC LIMIT 30;
+
+-- PROBLEM 24
+
+
+SELECT countries.country_name, countries.country_code, IF(`currency_code` = 'EUR', 'Euro', 'Not Euro') as `currency` FROM countries
+ORDER BY countries.country_name;
+
+
+-- PROBLEM 25 
+
+SELECT characters.name FROM characters
+ORDER BY characters.name;

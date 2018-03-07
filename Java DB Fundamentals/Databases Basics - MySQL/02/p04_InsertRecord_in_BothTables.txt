@@ -1,0 +1,22 @@
+-- problem 04 kakto go postnah v judge
+INSERT INTO towns (id, name)
+VALUES (1, 'Sofia'),
+(2, 'Plovdiv'),
+(3, 'Varna');
+
+INSERT INTO minions (id, name, age, town_id)
+VALUES (1, 'Kevin', 22, 1),
+(2, 'Bob', 15, 3),
+(3, 'Steward', NULL, 2);
+
+-- problem 04 az imam auto_increment v tablicata:
+
+INSERT INTO towns (id, name)
+VALUES (1, 'Sofia'),
+(2, 'Plovdiv'),
+(3, 'Varna');
+
+INSERT INTO minions (name, age, town_id)
+VALUES ('Kevin', 22, 1),
+('Bob', 15, 3),
+('Steward', NULL, 2);
