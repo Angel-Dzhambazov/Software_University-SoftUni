@@ -1,4 +1,4 @@
-package march13_Softuni.p06_BirthdayCelebrations;
+package hw04_OOPPrinciples.p06_BirthdayCelebrations;
 
 import java.io.BufferedReader;
 import java.io.IOException;

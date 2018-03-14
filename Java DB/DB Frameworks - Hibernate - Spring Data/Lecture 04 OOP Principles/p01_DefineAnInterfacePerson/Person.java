@@ -1,4 +1,4 @@
-package march13_Softuni.p01_DefineAnInterfacePerson;
+package hw04_OOPPrinciples.p01_DefineAnInterfacePerson;
 
 /**
  * Created by fluch on 3/13/2018.

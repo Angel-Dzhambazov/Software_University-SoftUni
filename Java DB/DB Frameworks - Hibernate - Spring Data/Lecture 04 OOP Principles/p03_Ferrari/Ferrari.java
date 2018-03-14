@@ -1,4 +1,4 @@
-package march13_Softuni.p03_Ferrari;
+package hw04_OOPPrinciples.p03_Ferrari;
 
 /**
  * Created by fluch on 3/13/2018.

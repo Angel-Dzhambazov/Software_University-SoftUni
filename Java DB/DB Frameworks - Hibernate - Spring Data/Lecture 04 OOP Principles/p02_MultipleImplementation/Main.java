@@ -1,4 +1,4 @@
-package march13_Softuni.p02_MultipleImplementation;
+package hw04_OOPPrinciples.p02_MultipleImplementation;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

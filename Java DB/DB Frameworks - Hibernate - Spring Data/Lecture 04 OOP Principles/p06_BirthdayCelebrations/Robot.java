@@ -1,4 +1,4 @@
-package march13_Softuni.p06_BirthdayCelebrations;
+package hw04_OOPPrinciples.p06_BirthdayCelebrations;
 
 /**
  * Created by fluch on 3/13/2018.

@@ -1,4 +1,4 @@
-package march13_Softuni.p01_DefineAnInterfacePerson;
+package hw04_OOPPrinciples.p01_DefineAnInterfacePerson;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;

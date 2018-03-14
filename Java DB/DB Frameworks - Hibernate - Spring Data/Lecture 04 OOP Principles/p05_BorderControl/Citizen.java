@@ -1,4 +1,4 @@
-package march13_Softuni.p05_BorderControl;
+package hw04_OOPPrinciples.p05_BorderControl;
 
 /**
  * Created by fluch on 3/13/2018.

@@ -1,4 +1,4 @@
-package march13_Softuni.p02_MultipleImplementation;
+package hw04_OOPPrinciples.p02_MultipleImplementation;
 
 /**
  * Created by fluch on 3/13/2018.

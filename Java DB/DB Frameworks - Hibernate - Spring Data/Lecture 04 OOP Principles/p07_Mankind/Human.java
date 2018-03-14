@@ -1,4 +1,4 @@
-package march13_Softuni.p07_Mankind;
+package hw04_OOPPrinciples.p07_Mankind;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +15,8 @@ abstract class Human {
 
     private String firstName;
     private String lastName;
+
+
 
     Human(String firstName, String lastName) {
         this.setFirstName(firstName);
@@ -33,8 +35,8 @@ abstract class Human {
 
     }
 
-    private void setLastName(String lastName) {
-        if (firstName == null || lastName.length() < 3) {
+    protected void setLastName(String lastName) {
+        if (lastName == null || lastName.length() < 3) {
             throw new IllegalArgumentException(TOO_SHORT_LAST_NAME);
         }
         if (!capitalLetterFirstName(lastName)) {
@@ -48,5 +50,13 @@ abstract class Human {
         Pattern p = Pattern.compile("^[A-Z]+");
         Matcher m = p.matcher(name);
         return m.find();
+    }
+
+    protected String getFirstName() {
+        return this.firstName;
+    }
+
+    protected String getLastName() {
+        return this.lastName;
     }
 }
